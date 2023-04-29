@@ -22,9 +22,9 @@ div {
 }
 
 input, button {
-    margin: auto;
     width: 98%;
     margin: 0.4rem;
+    border-radius: 6px;
 }
 input{
     min-width:445px;

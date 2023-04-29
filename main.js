@@ -3,8 +3,8 @@
 
     function convertPeriod(mil) {
         var min = Math.floor(mil / 60000);
-        var sec = Math.floor((mil % 60000) / 1000);
-        return `${min}m e ${sec}s`;
+        //var sec = Math.floor((mil % 60000) / 1000);
+        return `${min}`;
     };
 
     function renderGarage () {
@@ -37,8 +37,21 @@
         let period = new Date() - new Date(info[2].dataset.time);
         period = convertPeriod(period);
 
+
+        let preco = 0;
+        let valor = 5;
+        let valorAdd = 3;
+
+        if(period >= 60){
+            preco = valor + valorAdd
+        }else{
+            preco = valor
+        }
+
+        console.log(period)
+
         const licence = info[1].textContent;
-        const msg = `O veículo ${info[0].textContent} de placa ${licence} permaneceu ${period} estacionado. \n\n Deseja encerrar?`;
+        const msg = `O veículo ${info[0].textContent} de placa ${licence} permaneceu ${period} minutos estacionado. \n\nValor: ${preco} \n\n Deseja encerrar?`;
 
         if(!confirm(msg)) return;
         

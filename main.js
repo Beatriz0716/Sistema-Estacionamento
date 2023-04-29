@@ -25,13 +25,27 @@
                 })}
             </td>
             <td id="acoes">
-            <button class="impress" onClick="javascript:window.open ('imprimir.html') ; return false">Imprimir</a>
+            <button id="encerrar" onClick="encerrar()">Encerrar</a>
             <button class="delete">cancelar</button>
             </td>
         `;
 
         $("#garage").appendChild(row);
     };
+
+    // function encerrar(){
+    //     const button = document.getElementById("encerrar")
+    //     const modal = document.querySelector("dialog")
+    //     const closeModal = document.getElementById("closeModal")
+
+    //     button.onclick = function (){
+    //         modal.showModal()
+    //     }
+
+    //     closeModal.onclick = function(){
+    //         modal.close()
+    //     }
+    // }
 
     function checkOut(info) {
         let period = new Date() - new Date(info[2].dataset.time);

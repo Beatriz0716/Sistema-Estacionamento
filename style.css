@@ -8,7 +8,7 @@
 h1{
     font-size: 45pt;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     color: rgb(255, 255, 255);
 }
 
@@ -23,7 +23,7 @@ section{
     border: 1px solid none;
     border-radius: 10px;
     padding: 20px;
-    min-width: 750px;
+    min-width: 800px;
     box-shadow: 0 0 1em rgb(0 0 0 / .6);
 }
 
@@ -53,18 +53,32 @@ button {
     text-align: center;
     background-color: rgb(49, 224, 87);
     color: rgb(255, 255, 255);
+    text-transform: uppercase;
 }
 
-.delete, #encerrar {    
+button:active{
+    background-color: rgb(24, 129, 47);
+}
+
+#gerar{
+    background-color: rgb(241, 60, 60);
+}
+
+#gerar:active{
+    background-color: rgb(161, 39, 39);
+}
+
+.delete{    
     font-size: 8pt;
     text-transform: uppercase;
     font-weight: bold;
-    width: 45%;
+    width: 98%;
     color: #fff;
+    background-color: rgb(37, 34, 248);
 }
 
-.delete{
-    background-color: rgb(231, 54, 54);
+.delete:active{
+    background-color: rgb(0, 71, 129);
 }
 
 #encerrar{
@@ -96,25 +110,39 @@ th, td {
     justify-content:space-between;
 }
 
-/* dialog::backdrop{
+dialog::backdrop{
     background-color: rgb(0 0 0 / .4);
 }
 
 dialog{
-    max-width: 500px;
-    text-align: center;
+    width: 500px;
     margin: auto;
     border-radius: 8px;
     border: none;
-    box-shadow: 0 0 1em rgb(0 0 0 / .5);
-    display: flex;
-    flex-wrap: wrap;
+}
+
+dialog h3{
+    font-size: 25pt;
+    text-align: center;
+    border-bottom: 2px dashed black;
+    margin: 15px 5px;
+}
+
+dialog li{
+    margin: 6px;
+    font-weight: bold;
 }
 
 dialog button{
-    margin: 5px;
-    width: 45%;
-    justify-content: space-between;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 5px;    
+    width: 98%;
     background-color: #ccc;
     color: black;
-} */
+}
+
+dialog button:active{
+    background-color: #888888;
+}
+

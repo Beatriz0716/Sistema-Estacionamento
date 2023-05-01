@@ -13,7 +13,9 @@
         <div>
             <input type="text" id="name" placeholder="Nome do Veículo"  autocomplete="off">
             <input type="text" id="licence" placeholder="Placa do Veículo"  autocomplete="off">
+            <input type="text" id="cor" placeholder="Cor do Veículo"  autocomplete="off">
             <button id="send" class="sucess">Registrar</button>
+            <button id="gerar" onClick="checkOut()">Gerar Nota</button>
         </div>
 
     
@@ -22,6 +24,7 @@
                 <tr>
                     <th>Veículo</th>
                     <th>Placa</th>
+                    <th>cor</th>
                     <th>Entrada</th>
                     <th>Ações</th>
                 </tr>
@@ -29,12 +32,15 @@
             <tbody id="garage"></tbody>
         </table>
     </section>
-    <!-- <dialog>
-        <h1>Bom dia!!!</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis    corrupti facilis atque nobis fugit odit accusamus repellendus  recusandae quasi, placeat laudantium magnam, dolores voluptate omnis     consectetur nemo sapiente porro corporis.</p>
-        <button id="imprimir">Imprimir</button>
+    <dialog>
+        <h3>Fechamento</h3>
+        <ol>
+            
+        </ol>
+        <button id="imprimir" onClick="window.print()">Imprimir</button>
+        <button id="delete">excluir</button>
         <button id="closeModal">Cancelar</button>
-    </dialog> -->
+    </dialog>
 </body>
 <script src="main.js"></script>
 </html>

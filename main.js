@@ -1,12 +1,14 @@
 
     const $ = q => document.querySelector(q);
 
+    // conversão do tempo //
     function convertPeriod(mil) {
         var min = Math.floor(mil / 60000);
         //var sec = Math.floor((mil % 60000) / 1000);
         return `${min}`;
     };
 
+    // gerar tabela //
     function renderGarage () {
         const garage = getGarage();
         $("#garage").innerHTML = "";
@@ -18,6 +20,7 @@
         row.innerHTML = `
             <td>${car.name}</td>
             <td>${car.licence}</td>
+            <td>${car.cor}</td>
             <td data-time="${car.time}">
                 ${new Date(car.time)
                         .toLocaleString('pt-BR', { 
@@ -25,32 +28,18 @@
                 })}
             </td>
             <td id="acoes">
-            <button id="encerrar" onClick="encerrar()">Encerrar</a>
-            <button class="delete">cancelar</button>
+            <button class="delete">Selecionar</button>
             </td>
         `;
 
         $("#garage").appendChild(row);
     };
 
-    // function encerrar(){
-    //     const button = document.getElementById("encerrar")
-    //     const modal = document.querySelector("dialog")
-    //     const closeModal = document.getElementById("closeModal")
-
-    //     button.onclick = function (){
-    //         modal.showModal()
-    //     }
-
-    //     closeModal.onclick = function(){
-    //         modal.close()
-    //     }
-    // }
-
     function checkOut(info) {
-        let period = new Date() - new Date(info[2].dataset.time);
-        period = convertPeriod(period);
 
+        // calculo do valor //
+        let period = new Date() - new Date(info[3].dataset.time);
+        period = convertPeriod(period);
 
         let preco = 0;
         let valor = 5;
@@ -62,17 +51,44 @@
             preco = valor
         }
 
-        console.log(period)
+        // abrir pop-up //
+        const button = document.getElementById("gerar")
+        const modal = document.querySelector("dialog")
+        const closeModal = document.getElementById("closeModal")
+        const excluir = document.getElementById("delete")
 
-        const licence = info[1].textContent;
-        const msg = `O veículo ${info[0].textContent} de placa ${licence} permaneceu ${period} minutos estacionado. \n\nValor: ${preco} \n\n Deseja encerrar?`;
+        button.onclick = function (){
+            modal.showModal()
 
-        if(!confirm(msg)) return;
+            document.querySelector("ol").innerHTML =`
+                <li>Veiculo: ${info[0].textContent}</li>
+                <li>Placa: ${info[1].textContent}</li>
+                <li>Cor: ${info[2].textContent}</li>
+                <li>Permanencia: ${period}min</li>
+                <li>Valor: ${preco}</li>
+            `;
+        }
+
+        // fechar pop-up //
+        closeModal.onclick = function(){
+            modal.close();
+            
+        }
+
+        excluir.onclick = function(){
+            const msg = confirm("Deseja excluir esse registro?");
+
+            if(msg == true){
+                const garage = getGarage().filter(c => c.licence !== licence);
+                localStorage.garage = JSON.stringify(garage);
         
-        const garage = getGarage().filter(c => c.licence !== licence);
-        localStorage.garage = JSON.stringify(garage);
-        
-        renderGarage();
+                renderGarage();
+                modal.close();
+            }else{
+                modal.close();
+            }
+
+        }
     };
 
     const getGarage = () => localStorage.garage ? JSON.parse(localStorage.garage) : [];
@@ -81,24 +97,30 @@
     $("#send").addEventListener("click", e => {
         const name = $("#name").value;
         const licence = $("#licence").value;
-
-        if(!name || !licence){
+        const cor = $("#cor").value;
+        
+        // conferindo se campos estão preemchidos //
+        if(!name || !licence || !cor){
             alert("Os campos são obrigatórios.");
             return;
         }   
-
-        const card = { name, licence, time: new Date() };
+ 
+        // amarzemando no localStorage //
+        const card = { name, licence, cor, time: new Date() };
 
         const garage = getGarage();
         garage.push(card);
 
         localStorage.garage = JSON.stringify(garage);
 
+        // esvaziar campos depois que registrados //
         addCarToGarage(card);
         $("#name").value = "";
         $("#licence").value = "";
+        $("#cor").value = "";
     });
 
+    // excluir registro da tebela //
     $("#garage").addEventListener("click", (e) => {
         if(e.target.className === "delete")
             checkOut(e.target.parentElement.parentElement.cells);
